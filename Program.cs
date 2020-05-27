@@ -9,7 +9,6 @@ namespace ship_it
         {
             int input = 0;
             var instance = new Shipper();
-            //add menu here
             while (input != 6)
             {
                 Console.WriteLine("Choose from the following options:\n");
@@ -30,38 +29,46 @@ namespace ship_it
                 }
             }
             //take input here and pass into Shippable's add switch case
-            //Console.WriteLine("Press any key to return to the menu");
-            //keep in while loop
+            //keeps in while loop until option 6 to calculate is selected
 
         }
 
         interface IShippable
         {
+            //IShippable interface
             decimal ShipCost { get; }
             string Product { get; }
         }
-        class Bicycle : IShippable
+        public class Bicycle : IShippable
         {
-            public decimal ShipCost { get { return ShipCost; } set { ShipCost = 20.50M; } }
-            public string Product { get { return Product; } set { Product = "Bicycle"; } }
+            private decimal cost;
+            private string name;
+            public decimal ShipCost { get { cost = 20.50M; return cost; } }
+            public string Product { get { name = "Bicycle"; return name; } }
         }
 
-        class LawnMowers : IShippable
+        public class LawnMowers : IShippable
         {
-            public decimal ShipCost { get { return ShipCost; } set { ShipCost = 24.00M; } }
-            public string Product { get { return Product; } set { Product = "Lawn mowers"; } }
+            private decimal cost;
+            private string name;
+            public decimal ShipCost { get { cost = 24.00M; return cost; } }
+            public string Product { get { name = "Lawn mowers"; return name; } }
         }
 
-        class BaseballGloves : IShippable
+        public class BaseballGloves : IShippable
         {
-            public decimal ShipCost { get { return ShipCost; } set { ShipCost = 3.23M; } }
-            public string Product { get { return Product; } set { Product = "Baseball gloves"; } }
+            private decimal cost;
+            private string name;
+            public decimal ShipCost { get { cost = 3.23M; return cost; } }
+            public string Product { get { name = "Baseball gloves"; return name; } }
         }
 
-        class Crackers : IShippable
+        public class Crackers : IShippable
         {
-            public decimal ShipCost { get { return ShipCost; } set { ShipCost = 0.57M; } }
-            public string Product { get { return Product; } set { Product = "Crackers"; } }
+            private decimal cost;
+            private string name;
+            public decimal ShipCost { get { cost = 0.57M; return cost; } }
+            public string Product { get { name = "Crackers"; return name; } }
         }
 
         private class Shipper
@@ -70,7 +77,7 @@ namespace ship_it
 
             public void Add(int input)
             {
-                //essentially the result of menu options, including adding items
+                //the result part of the menu options, including adding items
                 switch (input)
                 {
                     case 1:
@@ -119,19 +126,24 @@ namespace ship_it
             {
                 if (Cart.Count == 0)
                 {
+                    //no use counting if nothing has been added
                     Console.WriteLine("Your cart is empty!\n");
                 }
                 else
                 {
                     int count = 0;
+                    //temporary int to count items then reset to 0
                     foreach (IShippable item in Cart)
                     {
-                        if (item is Bicycle)
+                        if (item.Product == "Bicycle")
+                            //alternatively I could use
+                            //if (item is Bicycle)
                         {
                             count++;
                         }
                     }
                     if (count == 0 || count > 1)
+                        //plurality
                         Console.WriteLine(count + " bicycles");
                     else
                         Console.WriteLine(count + " bicycle");
@@ -140,7 +152,7 @@ namespace ship_it
 
                     foreach (IShippable item in Cart)
                     {
-                        if (item is LawnMowers)
+                        if (item.Product == "Lawn mowers")
                         {
                             count++;
                         }
@@ -154,7 +166,7 @@ namespace ship_it
 
                     foreach (IShippable item in Cart)
                     {
-                        if (item is BaseballGloves)
+                        if (item.Product == "Baseball gloves")
                         {
                             count++;
                         }
@@ -168,19 +180,19 @@ namespace ship_it
 
                     foreach (IShippable item in Cart)
                     {
-                        if (item is Crackers)
+                        if (item.Product == "Crackers")
                         {
                             count++;
                         }
                     }
-                    Console.WriteLine(count + " crackers");
+                    Console.WriteLine(count + " packs of crackers");
+                    //crackers always has an s, plural or singular
                 }
 
             }
             public void Calculate()
             {
                 //calculate shipping cost here
-                //use count in congruence?
                 if (Cart.Count == 0)
                 {
                     Console.WriteLine("Your cart is empty!\n");
@@ -191,23 +203,6 @@ namespace ship_it
                     foreach (IShippable item in Cart)
                     {
                         total += item.ShipCost;
-
-                        //if (item is Bicycle)
-                        //{
-                        //    total += item.ShipCost;
-                        //}
-                        //if (item is LawnMowers)
-                        //{
-                        //    total += item.ShipCost;
-                        //}
-                        //if (item is BaseballGloves)
-                        //{
-                        //    total += item.ShipCost;
-                        //}
-                        //if (item is Crackers)
-                        //{
-                        //    total += item.ShipCost;
-                        //}
 
                     }
                     Console.WriteLine("Your shipping total is: $" + total);
